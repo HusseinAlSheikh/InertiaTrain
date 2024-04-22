@@ -1,5 +1,5 @@
 <template>
-    <h1> Hello Settings </h1>
+    <h1 class="text-4xl font-bold"> Hello Settings </h1>
     <Nav/>
 </template>
 
