@@ -1,23 +1,23 @@
 <template>
-    <h1 class="text-4xl font-bold" > Hello Users </h1>
-    <Nav/>
+   
+        <h1   class="text-2xl " > Hello Users </h1>
+   
 
-    <div style="margin-top: 600px;">
-        the current time is {{ time }}
-        <br>
-        <Link href="/users" class="text-red-600" preserveScroll >Refresh</Link>
-    </div>
+        <div style="margin-top: 600px;">
+            the current time is {{ time }}
+            <br>
+            <Link href="/users" class="text-red-600" preserveScroll >Refresh</Link>
+        </div>
+    
 </template>
 
 
-<script>
-
-    import Nav from '../Shared/Nav.vue';
-    import {Link} from '@inertiajs/vue3';
-    export default {
-        components : {Nav,Link},
-        props:{
-            time : String
+<script >
+ import {Link} from '@inertiajs/vue3';
+ export default {
+        components: {Link},
+        props :{
+            time : String 
         }
     };
 </script>
