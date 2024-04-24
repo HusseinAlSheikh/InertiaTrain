@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp ,Head} from '@inertiajs/vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import Layout from './Shared/Layout';
 
@@ -8,8 +8,8 @@ createInertiaApp({
 //     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
 //     return pages[`./Pages/${name}.vue`]
 //   },
-    resolve: (name) => {
-      let page = require(`./Pages/${name}.vue`).default;
+    resolve: async name => {
+      let page = (await import(`./Pages/${name}.vue`)).default;
 
       // if(!page.layout){
       //   page.layout = Layout;
@@ -23,8 +23,10 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
       .use(plugin)
+      .component('Head' , Head)
       .mount(el)
   },
+  title : title  => `My Application | ${title}`
 });
 
 InertiaProgress.init({

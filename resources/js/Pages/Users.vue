@@ -1,5 +1,9 @@
 <template>
-   
+     <Head>
+        <title> Users </title>
+                <meta name="description" content="users info  " head-key="description">
+
+        </Head>
         <h1   class="text-2xl " > Hello Users </h1>
    
 
