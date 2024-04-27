@@ -4,10 +4,11 @@
                 <meta name="description" content="users info  " head-key="description">
 
         </Head>
-        <h1   class="text-2xl " > Hello Users </h1>
-   
-
-        
+        <div class="flex justify-between mb-6 mt-6">
+            <h1   class="text-2xl " > Hello Users </h1>
+             <input v-model="search" type="text" placeholder="Search" class="border px-2 rounded-lg">
+        </div>
+      
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -105,13 +106,19 @@
 </template>
 
 
-<script >
- import {Link} from '@inertiajs/vue3';
+<script setup>
  import Pagination from '../Shared/Pagination.vue';
- export default {
-        components: { Link, Pagination, Pagination },
-        props :{
-            users : Object 
-        }
-    };
+import { ref ,watch} from 'vue';
+import { router } from '@inertiajs/vue3'
+ let props = defineProps({
+    users:Object ,
+    filters : Object
+ });
+ let search = ref(props.filters.search);
+ watch(search , value => {
+    router.get('/users',{search:value},{
+        preserveState : true,
+        replace:true
+    });
+ });
 </script>
