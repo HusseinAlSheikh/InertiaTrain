@@ -43,6 +43,7 @@ Route::get('/users/create', function () {
 
 
 Route::post('/users', function () {
+    
     //------------validate 
     $attributes = Request::validate([
         'name' => 'required|min:4' , 

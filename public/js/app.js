@@ -493,6 +493,7 @@ var map = {
 	],
 	"./Users/Index.vue": [
 		"./resources/js/Pages/Users/Index.vue",
+		"/js/vendor",
 		"resources_js_Pages_Users_Index_vue"
 	]
 };
@@ -506,7 +507,7 @@ function webpackAsyncContext(req) {
 	}
 
 	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1]).then(() => {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(() => {
 		return __webpack_require__(id);
 	});
 }
