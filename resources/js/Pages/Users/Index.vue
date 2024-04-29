@@ -5,8 +5,12 @@
 
         </Head>
         <div class="flex justify-between mb-6 mt-6">
-            <h1   class="text-2xl " > Hello Users </h1>
-             <input v-model="search" type="text" placeholder="Search" class="border px-2 rounded-lg">
+            <div class="flex items-center">
+              <h1   class="text-2xl bold " >Users </h1>
+              <Link as="button" href="/users/create" class="text-blue-600 text-sm ml-2">Create User</Link>
+            </div>
+            
+            <input v-model="search" type="text" placeholder="Search" class="border px-2 rounded-lg">
         </div>
       
 
@@ -107,9 +111,9 @@
 
 
 <script setup>
- import Pagination from '../Shared/Pagination.vue';
+ import Pagination from '../../Shared/Pagination.vue';
 import { ref ,watch} from 'vue';
-import { router } from '@inertiajs/vue3'
+import { router ,Link } from '@inertiajs/vue3'
  let props = defineProps({
     users:Object ,
     filters : Object
