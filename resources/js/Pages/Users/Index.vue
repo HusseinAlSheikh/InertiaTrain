@@ -5,9 +5,10 @@
 
         </Head>
         <div class="flex justify-between mb-6 mt-6">
+            
             <div class="flex items-center">
               <h1   class="text-2xl bold " >Users </h1>
-              <Link as="button" href="/users/create" class="text-blue-600 text-sm ml-2">Create User</Link>
+              <Link v-if="can.createUser" as="button" href="/users/create" class="text-blue-600 text-sm ml-2">Create User</Link>
             </div>
             
             <input v-model="search" type="text" placeholder="Search" class="border px-2 rounded-lg">
@@ -25,12 +26,12 @@
                     {{ user.name }}
                 </th>
                 <td class="px-6 py-4">
-                    <Link :href="'/users/'+user.id+'/edit'" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <Link v-if="user.can.edit" :href="'/users/'+user.id+'/edit'" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                         Edit
                     </Link>
                 </td>
                 <td class="px-6 py-4">
-                    <Link :href="'/users/'+user.id" class="font-medium text-red-600 dark:text-red-500 hover:underline" method="delete">
+                    <Link v-if="user.can.delete"  :href="'/users/'+user.id" class="font-medium text-red-600 dark:text-red-500 hover:underline" method="delete">
                         Delete
                     </Link>
                 </td>
@@ -123,7 +124,8 @@ import debounce from 'lodash/debounce';
 
  let props = defineProps({
     users:Object ,
-    filters : Object
+    filters : Object , 
+    can : Object 
  });
  let search = ref(props.filters.search);
  watch(search , 

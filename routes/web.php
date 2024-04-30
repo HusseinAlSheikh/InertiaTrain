@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,16 +38,23 @@ Route::middleware('auth')->group(function(){
                 ->paginate()
                 ->withQueryString()
                 ->through(fn($user)=>[
-                'id' => $user->id,
-                'name'=> $user->name
+                    'id' => $user->id,
+                    'name'=> $user->name,
+                    'can' => [
+                        'edit'   => Auth::user()->can('edit' , $user),
+                        'delete' => Auth::user()->can('delete' , $user),
+                    ]
                 ]),
-            'filters' => request()->only(['search'])
+            'filters' => request()->only(['search']) , 
+            'can' => [
+                'createUser' => Auth::user()->can('create',User::class)
+            ]
         ]);
     });
 
     Route::get('/users/create', function () {
         return Inertia::render('Users/Create');
-    });
+    })->can('create','App\Models\User');
 
     Route::get('/users/{id}/edit', function ($id) {
         $user = User::findOrFail($id);
